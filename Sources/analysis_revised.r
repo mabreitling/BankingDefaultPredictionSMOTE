@@ -261,7 +261,7 @@ ctrl <- trainControl(method = "repeatedcv", repeats = 5,
                        summaryFunction = twoClassSummary)
 
 
-# fit on complete dataset:
+### fit on complete dataset:
 modelFit_complete <- train(Perform_2 ~ ., data = trainSet_imbalanced_pre, #fit model to training set
                        method = "gbm",
                        trControl = ctrl,
@@ -303,9 +303,7 @@ ctrl <- trainControl(method = "repeatedcv", repeats = 5,
                      index = myFolds_full,
                      summaryFunction = twoClassSummary)
 
-
-# fit on complete dataset:
-modelFit_complete <- train(Perform_2 ~ ., data = trainSet_imbalanced, #fit model to training set
+modelFit_complete_imb <- train(Perform_2 ~ ., data = trainSet_imbalanced, #fit model to training set
                            method = "gbm",
                            trControl = ctrl,
                            preProcess=c("scale", "center"),  ## preprocessing within dataset
@@ -319,7 +317,7 @@ testSet_pre$prediction <- predict(modelFit_complete, newdata = testSet_pre)
 table(testSet_pre$Perform_2, testSet_pre$prediction)
 sum(testSet_pre$Perform_2 == testSet_pre$prediction)/nrow(testSet_pre)
 
-saveRDS(modelFit_complete, "/home/marius/VL_Unterlagen/DataAnaProject/Lyudmila/data/camel/trained_models/trainmodelFit_complete.rds")
+saveRDS(modelFit_complete_imb, "/home/marius/VL_Unterlagen/DataAnaProject/Lyudmila/data/camel/trained_models/trainmodelFit_complete_imb.rds")
 
 ###################################################
 
